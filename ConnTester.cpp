@@ -21,6 +21,7 @@
 #include <string>
 #include <iostream>
 #include <signal.h>
+#include <unistd.h>
 #endif
 #include <map>
 #include <stdlib.h>
