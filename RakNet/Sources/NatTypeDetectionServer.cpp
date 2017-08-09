@@ -164,7 +164,7 @@ void NatTypeDetectionServer::Update(void)
 			case STATE_TESTING_PORT_RESTRICTED_1:
 			case STATE_TESTING_PORT_RESTRICTED_2:
 				// C1 sends to S3P4. If address of C1 as seen by S3P4 is the same as the address of C1 as seen by S1P1, then port-restricted cone nat. Done
-				printf("Testing NAT_TYPE_PORT_RESTRICTED\n");
+				printf("Testing NAT_TYPE_PORT_RESTRICTED, sending: '%s:%d'\n", s3p4Address, s3p4Port);
 				bs.Write((unsigned char) ID_NAT_TYPE_DETECTION_REQUEST);
 				bs.Write(RakString::NonVariadic(s3p4Address));
 				bs.Write(s3p4Port);
