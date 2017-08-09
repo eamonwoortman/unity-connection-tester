@@ -90,7 +90,7 @@ void usage()
 		   "-e\tDebug level (0=OnlyErrors, 1=Warnings, 2=Informational(default), 2=FullDebug)\n\t"
 		   "-c\tConnection count\n\t"
 		   "-h\tBind to listen address\n\t"
-		   "-b\tBind to three external test addresses\n\n"
+		   "-b\tBind to three external test addresses. Note: if the external ips are behind a NAT, please use the optional publicIpAddress parameter on the second ip address.\n\t\tUsage: -b ipAddress1 ipAddress2<:publicIpAddress> ipAddress3\n\n"
 		   "A total of 4 public IP addresses is needed for the connection tester to work. "
 		   "Specify the main listen address and the three test addresses with the -h, and -b parameters, "
 		   "If they are not specified they will be autodetected (first one detected will be the listen address.\n\n"
@@ -106,6 +106,7 @@ int main(int argc, char *argv[])
 	char *bindToIP1 = NULL;
 	char *bindToIP2 = NULL;
 	char *bindToIP3 = NULL;
+	char *bindToIP3Public = NULL;
 	char *bindToIP4 = NULL;
 	bool enablePacketLogger = false;
 	PacketLogger packetLogger;
@@ -187,8 +188,11 @@ int main(int argc, char *argv[])
 					
 					bindToIP2 = argv[i+1];
 					bindToIP3 = argv[i+2];
+					char *temp = strtok(bindToIP3, ":");
+					bindToIP3Public = strtok(NULL, ":");
 					bindToIP4 = argv[i+3];
-					if (!(validate_ip(bindToIP2) && validate_ip(bindToIP3) && validate_ip(bindToIP4)))
+
+					if (!(validate_ip(bindToIP2) && validate_ip(bindToIP3) && validate_ip(bindToIP4) && (bindToIP3Public == NULL || validate_ip(bindToIP3Public))))
 					{
 						fprintf(stderr, "Invalid IP address with -b paramter. Must be in dot notation.\n");
 						return 1;
@@ -290,8 +294,12 @@ int main(int argc, char *argv[])
 		bindToIP4 = ipList[3];
 	}
 		
-	Log::print_log("NAT detection on %s - %s - %s\n", bindToIP2, bindToIP3, bindToIP4);
-	natTypeDetection->Startup(bindToIP2, bindToIP3, bindToIP4);	
+	if (bindToIP3Public != NULL) 
+		Log::print_log("NAT detection on %s - %s (%s) - %s\n", bindToIP2, bindToIP3, bindToIP3Public, bindToIP4);
+	else 
+		Log::print_log("NAT detection on %s - %s - %s\n", bindToIP2, bindToIP3, bindToIP4);
+	
+	natTypeDetection->Startup(bindToIP2, bindToIP3, bindToIP3Public,bindToIP4);
 		
 	// Register signal handler
 	if (signal(SIGINT, shutdown) == SIG_ERR || signal(SIGTERM, shutdown) == SIG_ERR)

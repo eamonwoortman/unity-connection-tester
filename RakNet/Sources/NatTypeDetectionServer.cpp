@@ -24,6 +24,7 @@ NatTypeDetectionServer::~NatTypeDetectionServer()
 void NatTypeDetectionServer::Startup(
 									 const char *nonRakNetIP2,
 									 const char *nonRakNetIP3,
+									 const char *nonRakNetIP3Alias,
 									 const char *nonRakNetIP4)
 {
 	DataStructures::List<RakNetSmartPtr<RakNetSocket> > sockets;
@@ -38,7 +39,10 @@ void NatTypeDetectionServer::Startup(
 	s3p4Port=SocketLayer::Instance()->GetLocalPort(s3p4);
 	s4p5=CreateNonblockingBoundSocket(nonRakNetIP4);
 	s4p5Port=SocketLayer::Instance()->GetLocalPort(s4p5);
-	strcpy(s3p4Address, nonRakNetIP3);
+	if (nonRakNetIP3Alias != NULL) 
+		strcpy(s3p4Address, nonRakNetIP3Alias);
+	else
+		strcpy(s3p4Address, nonRakNetIP3);
 }
 void NatTypeDetectionServer::Shutdown()
 {

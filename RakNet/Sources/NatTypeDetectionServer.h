@@ -60,6 +60,7 @@ public:
 	void Startup(
 		const char *nonRakNetIP2,
 		const char *nonRakNetIP3,
+		const char *nonRakNetIP3Alias,
 		const char *nonRakNetIP4);
 
 	// Releases the sockets created in Startup();
