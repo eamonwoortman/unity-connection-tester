@@ -11,6 +11,7 @@ Changes
 - Fixed various syntax errors
 - Added optional IP alias for the third external IP parameter
 - Upgraded Visual Studio project to VS 2015
+- Extended the service file functionality a bit
 
 Usage
 -- 
