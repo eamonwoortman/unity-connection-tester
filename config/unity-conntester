@@ -36,8 +36,6 @@ fi
 
 COMMAND="./${BINARYNAME} -d $OPTIONS"
 
-echo "COMMAND=${COMMAND}" && ${COMMAND}
-exit 0
 # ------------------------------------
 
 RETVAL=0
