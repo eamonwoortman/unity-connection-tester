@@ -29,7 +29,7 @@ If you want to be more in control as to which IP will be used, you can use the `
 If your NICs are behind a NAT like mine, you can simply bind the private IPs, and alias the external IP address. You still need to assign the public IP's to your private ones in your AWS console.
 
 ```
-./ConnTester -h 172.50.60.70 -b 172.50.60.90 172.50.60.91:86.91.100.51 172.50.60.92
+./ConnTester -h 172.50.60.70 -b 172.50.60.90 172.50.60.91 86.91.100.51 172.50.60.92
 ```
 
 
@@ -41,8 +41,8 @@ Accepted parameters are:
         -e      Debug level (0=OnlyErrors, 1=Warnings, 2=Informational(default), 2=FullDebug)
         -c      Connection count
         -h      Bind to listen address
-        -b      Bind to three external test addresses. Note: if the external ips are behind a NAT, please use the optional publicIpAddress on the second ip address.
-                Usage: -b ipAddress1 ipAddress2<:publicIpAddress> ipAddress3
+        -b      Bind to three external test addresses. Note: if the external IPs are behind a NAT, please use the optional publicIpAddress parameter on the second IP address.
+                Usage: -b IPAddress1 IPAddress2 <publicIPAddress2> IPAddress3
 ```
 
 NOTE
