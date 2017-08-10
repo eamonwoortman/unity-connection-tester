@@ -90,9 +90,9 @@ void usage()
 		   "-e\tDebug level (0=OnlyErrors, 1=Warnings, 2=Informational(default), 2=FullDebug)\n\t"
 		   "-c\tConnection count\n\t"
 		   "-h\tBind to listen address\n\t"
-		   "-b\tBind to three external test addresses. Note: if the external ips are behind a NAT, please use the optional publicIpAddress parameter on the second ip address.\n\t\tUsage: -b ipAddress1 ipAddress2<:publicIpAddress> ipAddress3\n\n"
-		   "A total of 4 public IP addresses is needed for the connection tester to work. "
-		   "Specify the main listen address and the three test addresses with the -h, and -b parameters, "
+		   "-b\tBind to three external test addresses. Note: if the external IPs are behind a NAT, please use the optional publicIpAddress parameter on the second IP address.\n\t\tUsage: -b IPAddress1 IPAddress2 <publicIPAddress2> IPAddress3\n\n"
+		   "A total of 4 public IP addresses is needed for the connection tester to work.\n\n"
+		   "Specify the main listen address and the three test addresses with the -h, and -b parameters,\n"
 		   "If they are not specified they will be autodetected (first one detected will be the listen address.\n\n"
 		   "If any parameter is omitted the default value is used.\n");
 }
@@ -188,16 +188,29 @@ int main(int argc, char *argv[])
 					
 					bindToIP2 = argv[i+1];
 					bindToIP3 = argv[i+2];
-					char *temp = strtok(bindToIP3, ":");
-					bindToIP3Public = strtok(NULL, ":");
-					bindToIP4 = argv[i+3];
+					if (argc-i == 5) {
+						bindToIP3Public = argv[i+3];
+						bindToIP4 = argv[i+4];
+					} 
+					else 
+					{
+						bindToIP4 = argv[i+3];
+					}
 
 					if (!(validate_ip(bindToIP2) && validate_ip(bindToIP3) && validate_ip(bindToIP4) && (bindToIP3Public == NULL || validate_ip(bindToIP3Public))))
 					{
 						fprintf(stderr, "Invalid IP address with -b paramter. Must be in dot notation.\n");
 						return 1;
 					}
-					i=i+3;
+
+					if (argc-i == 5) {
+						i = i+4;
+					}
+					else 
+					{
+						i = i+3;
+					}
+
 					break;
 				}
 				case 'n':
