@@ -53,9 +53,9 @@ case "$1" in
 	if [ -z ${USERNAME+x} ]
 	then
 
-	        su $USERNAME -c "cd ${HOMEDIR} && $(COMMAND)"
+	        su $USERNAME -c "cd ${HOMEDIR} && ${COMMAND}"
 	else
-		cd ${HOMEDIR} && $(COMMAND)
+		cd ${HOMEDIR} && ${COMMAND}
 	fi
 	RETVAL=$?
         echo
