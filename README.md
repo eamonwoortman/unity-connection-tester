@@ -46,6 +46,6 @@ Accepted parameters are:
                 Usage: -b IPAddress1 IPAddress2 <publicIPAddress2> IPAddress3
 ```
 
-NOTE
+Note
 --
 If you are using AWS, make sure you add all 'allow all UDP traffic' to the security group.
