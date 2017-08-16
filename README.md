@@ -36,7 +36,7 @@ If your NICs are behind a NAT like mine, you can simply bind the private IPs, an
 
 Accepted parameters are:
 ```
-        -p      Listen port (1-65535)
+        -p      Listen port (1-65535), the default port is 10737
         -d      Daemon mode, run in the background
         -l      Use given log file
         -e      Debug level (0=OnlyErrors, 1=Warnings, 2=Informational(default), 2=FullDebug)
